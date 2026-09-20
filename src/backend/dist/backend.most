@@ -1,0 +1,288 @@
+// Version: 4.0.0
+type AddressId__273540678 = AddressId__345838458;
+type AddressId__345838458 = Nat;
+type Address__1057424272 =
+  {
+    addressLabel : Text;
+    barangay : Text;
+    city : Text;
+    id : AddressId__273540678;
+    isDefault : Bool;
+    landmark : ?Text;
+    street : Text
+  };
+type CartItem__1044444615 =
+  {
+    imageUrl : ?ExternalBlob__220559234;
+    menuItemId : MenuItemId__472437448;
+    name : Text;
+    quantity : Nat;
+    unitPrice : Centavos__65918956
+  };
+type Cart__949090555 =
+  {
+    deliveryFee : Centavos__65918956;
+    items : [CartItem__1044444615];
+    restaurantId : RestaurantId__266769323;
+    restaurantName : Text;
+    subtotal : Centavos__65918956;
+    total : Centavos__65918956
+  };
+type Centavos__188910442 = Centavos__32597444;
+type Centavos__32597444 = Nat;
+type Centavos__422534260 = Centavos__32597444;
+type Centavos__65918956 = Centavos__32597444;
+type Data__44217153<K, V> = {var count : Nat__227979830; kvs : [var ?(K, V)]};
+type DeliveryMinutes__1072779698 = Nat;
+type DeliveryMinutes__606183005 = DeliveryMinutes__1072779698;
+type ExternalBlob__220559234 = Blob;
+type Internal__283199666<K, V> =
+  {children : [var ?Node__204828119<K, V>]; data : Data__44217153<K, V>};
+type Leaf__598469445<K, V> = {data : Data__44217153<K, V>};
+type List__355132335<T> =
+  {
+    var blockIndex : Nat__227979830;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__227979830
+  };
+type List__836382695<T> = List__355132335<T>;
+type Map__230067015<K, V> = Map__405889023<K, V>;
+type Map__405889023<K, V> = Map__603270868<K, V>;
+type Map__603270868<K, V> =
+  {var root : Node__204828119<K, V>; var size : Nat__227979830};
+type MenuItemId__18119667 = Nat;
+type MenuItemId__472437448 = MenuItemId__18119667;
+type MenuItemId__787277606 = MenuItemId__18119667;
+type MenuItem__152604538 =
+  {
+    available : Bool;
+    category : Text;
+    description : Text;
+    id : MenuItemId__787277606;
+    imageUrl : ?ExternalBlob__220559234;
+    name : Text;
+    price : Centavos__188910442;
+    restaurantId : RestaurantId__312291208
+  };
+type Nat__227979830 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__782614388 =
+  {
+    var accessControlState :
+      {
+        var adminAssigned : Bool;
+        userRoles : Map__230067015<Principal, {#admin; #guest; #user}>
+      };
+    addresses :
+      Map__230067015<Principal,
+                      List__836382695<{
+                                        addressLabel : Text;
+                                        barangay : Text;
+                                        city : Text;
+                                        id : Nat;
+                                        isDefault : Bool;
+                                        landmark : ?Text;
+                                        street : Text
+                                      }>>;
+    carts :
+      Map__230067015<Principal,
+                      {
+                        deliveryFee : Nat;
+                        items :
+                          [{
+                             imageUrl : ?Blob;
+                             menuItemId : Nat;
+                             name : Text;
+                             quantity : Nat;
+                             unitPrice : Nat
+                           }];
+                        restaurantId : Nat;
+                        restaurantName : Text;
+                        subtotal : Nat;
+                        total : Nat
+                      }>;
+    counters :
+      {
+        var nextAddressId : Nat;
+        var nextMenuItemId : Nat;
+        var nextOrderId : Nat;
+        var nextRestaurantId : Nat
+      };
+    menuItems :
+      Map__230067015<Nat,
+                      {
+                        available : Bool;
+                        category : Text;
+                        description : Text;
+                        id : Nat;
+                        imageUrl : ?Blob;
+                        name : Text;
+                        price : Nat;
+                        restaurantId : Nat
+                      }>;
+    orderOwners : Map__230067015<Nat, Principal>;
+    orders :
+      Map__230067015<Nat,
+                      {
+                        address :
+                          {
+                            addressLabel : Text;
+                            barangay : Text;
+                            city : Text;
+                            id : Nat;
+                            isDefault : Bool;
+                            landmark : ?Text;
+                            street : Text
+                          };
+                        createdAt : Int;
+                        deliveryFee : Nat;
+                        deliveryNotes : ?Text;
+                        estimatedDeliveryMinutes : Nat;
+                        id : Nat;
+                        items :
+                          [{
+                             menuItemId : Nat;
+                             name : Text;
+                             quantity : Nat;
+                             unitPrice : Nat
+                           }];
+                        orderNumber : Text;
+                        paymentMethod : {#card; #cashOnDelivery};
+                        restaurantId : Nat;
+                        restaurantName : Text;
+                        status :
+                          {
+                            #confirmed;
+                            #delivered;
+                            #outForDelivery;
+                            #placed;
+                            #preparing
+                          };
+                        subtotal : Nat;
+                        total : Nat;
+                        updatedAt : Int
+                      }>;
+    restaurants :
+      Map__230067015<Nat,
+                      {
+                        active : Bool;
+                        coverImageUrl : ?Blob;
+                        cuisine : Text;
+                        deliveryFee : Nat;
+                        description : Text;
+                        estimatedDeliveryMinutes : Nat;
+                        id : Nat;
+                        name : Text;
+                        operatingHours : Text;
+                        promoLabel : ?Text;
+                        rating : Nat;
+                        ratingCount : Nat
+                      }>
+  };
+type Node__204828119<K, V> =
+  {#internal : Internal__283199666<K, V>; #leaf : Leaf__598469445<K, V>};
+type OldActor__98963223 = {};
+type OrderId__197865225 = Nat;
+type OrderId__521176343 = OrderId__197865225;
+type OrderLine__705645396 = OrderLine__833632928;
+type OrderLine__833632928 =
+  {
+    menuItemId : MenuItemId__18119667;
+    name : Text;
+    quantity : Nat;
+    unitPrice : Centavos__32597444
+  };
+type OrderStatus__272730104 = OrderStatus__393009242;
+type OrderStatus__393009242 =
+  {#confirmed; #delivered; #outForDelivery; #placed; #preparing};
+type Order__141779993 =
+  {
+    address : Address__1057424272;
+    createdAt : Timestamp__813860109;
+    deliveryFee : Centavos__422534260;
+    deliveryNotes : ?Text;
+    estimatedDeliveryMinutes : DeliveryMinutes__1072779698;
+    id : OrderId__521176343;
+    items : [OrderLine__705645396];
+    orderNumber : Text;
+    paymentMethod : PaymentMethod__972042942;
+    restaurantId : RestaurantId__913407208;
+    restaurantName : Text;
+    status : OrderStatus__272730104;
+    subtotal : Centavos__422534260;
+    total : Centavos__422534260;
+    updatedAt : Timestamp__813860109
+  };
+type PaymentMethod__46913440 = {#card; #cashOnDelivery};
+type PaymentMethod__972042942 = PaymentMethod__46913440;
+type RestaurantId__266769323 = RestaurantId__389023155;
+type RestaurantId__312291208 = RestaurantId__389023155;
+type RestaurantId__389023155 = Nat;
+type RestaurantId__913407208 = RestaurantId__389023155;
+type Restaurant__109554860 =
+  {
+    active : Bool;
+    coverImageUrl : ?ExternalBlob__220559234;
+    cuisine : Text;
+    deliveryFee : Centavos__188910442;
+    description : Text;
+    estimatedDeliveryMinutes : DeliveryMinutes__606183005;
+    id : RestaurantId__312291208;
+    name : Text;
+    operatingHours : Text;
+    promoLabel : ?Text;
+    rating : Nat;
+    ratingCount : Nat
+  };
+type Timestamp__301639476 = Int;
+type Timestamp__813860109 = Timestamp__301639476;
+type UserRole__91647283 = {#admin; #guest; #user};
+{
+  "20260920_020000" : (_old : OldActor__98963223) -> NewActor__782614388
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__230067015<Principal, UserRole__91647283>
+    };
+  stable addresses :
+    {
+      var root :
+        Node__204828119<Principal, List__836382695<Address__1057424272>>;
+      var size : Nat__227979830
+    };
+  stable carts :
+    {
+      var root : Node__204828119<Principal, Cart__949090555>;
+      var size : Nat__227979830
+    };
+  stable counters :
+    {
+      var nextAddressId : Nat;
+      var nextMenuItemId : Nat;
+      var nextOrderId : Nat;
+      var nextRestaurantId : Nat
+    };
+  stable menuItems :
+    {
+      var root : Node__204828119<MenuItemId__18119667, MenuItem__152604538>;
+      var size : Nat__227979830
+    };
+  stable orderOwners :
+    {
+      var root : Node__204828119<OrderId__197865225, Principal>;
+      var size : Nat__227979830
+    };
+  stable orders :
+    {
+      var root : Node__204828119<OrderId__197865225, Order__141779993>;
+      var size : Nat__227979830
+    };
+  stable restaurants :
+    {
+      var root :
+        Node__204828119<RestaurantId__389023155, Restaurant__109554860>;
+      var size : Nat__227979830
+    }
+};

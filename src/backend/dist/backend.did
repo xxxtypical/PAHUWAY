@@ -1,0 +1,334 @@
+type _ImmutableObjectStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _ImmutableObjectStorageRefillInformation = record {
+                                                  proposed_top_up_amount:
+                                                   opt nat;};
+type _ImmutableObjectStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type Timestamp = int;
+type Result__1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type RestaurantSort = 
+ variant {
+   deliveryFee;
+   deliveryTime;
+   priceLowToHigh;
+   rating;
+ };
+type RestaurantInput = 
+ record {
+   coverImageUrl: opt ExternalBlob;
+   cuisine: text;
+   deliveryFee: Centavos;
+   description: text;
+   estimatedDeliveryMinutes: DeliveryMinutes;
+   name: text;
+   operatingHours: text;
+   promoLabel: opt text;
+ };
+type RestaurantId = nat;
+type RestaurantFilter = 
+ record {
+   cuisine: opt text;
+   maxDeliveryFee: opt Centavos;
+   maxDeliveryMinutes: opt DeliveryMinutes;
+   maxPrice: opt Centavos;
+   minRating: opt nat;
+   searchTerm: opt text;
+   sort: opt RestaurantSort;
+ };
+type RestaurantDetail = 
+ record {
+   menu: vec MenuItem;
+   restaurant: Restaurant;
+ };
+type Restaurant = 
+ record {
+   active: bool;
+   coverImageUrl: opt ExternalBlob;
+   cuisine: text;
+   deliveryFee: Centavos;
+   description: text;
+   estimatedDeliveryMinutes: DeliveryMinutes;
+   id: RestaurantId;
+   name: text;
+   operatingHours: text;
+   promoLabel: opt text;
+   rating: nat;
+   ratingCount: nat;
+ };
+type PlaceOrderInput = 
+ record {
+   addressId: AddressId;
+   deliveryNotes: opt text;
+   paymentMethod: PaymentMethod;
+   restaurantId: RestaurantId;
+ };
+type PaymentMethod = 
+ variant {
+   card;
+   cashOnDelivery;
+ };
+type OrderStatusCounts = 
+ record {
+   confirmed: nat;
+   delivered: nat;
+   outForDelivery: nat;
+   placed: nat;
+   preparing: nat;
+ };
+type OrderStatus = 
+ variant {
+   confirmed;
+   delivered;
+   outForDelivery;
+   placed;
+   preparing;
+ };
+type OrderLine = 
+ record {
+   menuItemId: MenuItemId;
+   name: text;
+   quantity: nat;
+   unitPrice: Centavos;
+ };
+type OrderId = nat;
+type Order = 
+ record {
+   address: Address;
+   createdAt: Timestamp;
+   deliveryFee: Centavos;
+   deliveryNotes: opt text;
+   estimatedDeliveryMinutes: DeliveryMinutes;
+   id: OrderId;
+   items: vec OrderLine;
+   orderNumber: text;
+   paymentMethod: PaymentMethod;
+   restaurantId: RestaurantId;
+   restaurantName: text;
+   status: OrderStatus;
+   subtotal: Centavos;
+   total: Centavos;
+   updatedAt: Timestamp;
+ };
+type MenuItemInput = 
+ record {
+   available: bool;
+   category: text;
+   description: text;
+   imageUrl: opt ExternalBlob;
+   name: text;
+   price: Centavos;
+ };
+type MenuItemId = nat;
+type MenuItem = 
+ record {
+   available: bool;
+   category: text;
+   description: text;
+   id: MenuItemId;
+   imageUrl: opt ExternalBlob;
+   name: text;
+   price: Centavos;
+   restaurantId: RestaurantId;
+ };
+type MenuCategory = 
+ record {
+   category: text;
+   items: vec MenuItem;
+ };
+type ExternalBlob = blob;
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type DeliveryMinutes = nat;
+type DashboardSummary = 
+ record {
+   menuItemCount: nat;
+   ordersByStatus: OrderStatusCounts;
+   restaurantCount: nat;
+ };
+type Centavos = nat;
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+type CartItem = 
+ record {
+   imageUrl: opt ExternalBlob;
+   menuItemId: MenuItemId;
+   name: text;
+   quantity: nat;
+   unitPrice: Centavos;
+ };
+type Cart = 
+ record {
+   deliveryFee: Centavos;
+   items: vec CartItem;
+   restaurantId: RestaurantId;
+   restaurantName: text;
+   subtotal: Centavos;
+   total: Centavos;
+ };
+type AddressInput = 
+ record {
+   addressLabel: text;
+   barangay: text;
+   city: text;
+   landmark: opt text;
+   street: text;
+ };
+type AddressId = nat;
+type Address = 
+ record {
+   addressLabel: text;
+   barangay: text;
+   city: text;
+   id: AddressId;
+   isDefault: bool;
+   landmark: opt text;
+   street: text;
+ };
+type AddToCartResult = 
+ variant {
+   added: Cart;
+   differentRestaurant:
+    record {
+      currentRestaurantId: RestaurantId;
+      currentRestaurantName: text;
+      requestedRestaurantId: RestaurantId;
+      requestedRestaurantName: text;
+    };
+ };
+service : {
+  _immutableObjectStorageBlobsAreLive: (hashes: vec blob) -> (vec bool) query;
+  _immutableObjectStorageBlobsToDelete: () -> (vec blob) query;
+  _immutableObjectStorageConfirmBlobDeletion: (blobs: vec blob) -> ();
+  _immutableObjectStorageCreateCertificate: (blobHash: text) ->
+   (_ImmutableObjectStorageCreateCertificateResult);
+  _immutableObjectStorageRefillCashier: (refillInformation:
+   opt _ImmutableObjectStorageRefillInformation) ->
+   (_ImmutableObjectStorageRefillResult);
+  _immutableObjectStorageUpdateGatewayPrincipals: () -> ();
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__1);
+  _internet_identity_sign_in_start: () -> (blob);
+  /// Add a saved address for the caller.
+  addAddress: (input: AddressInput) -> (Address);
+  /// Add a menu item to a restaurant (admin only).
+  addMenuItem: (restaurantId: RestaurantId, input: MenuItemInput) ->
+   (opt MenuItem);
+  /// Add a dish to the caller's cart, or report a restaurant conflict.
+  addToCart: (restaurantId: RestaurantId, menuItemId: MenuItemId, quantity:
+   nat) -> (AddToCartResult);
+  /// Advance an order to the next status (admin only).
+  advanceOrderStatus: (id: OrderId) -> (opt Order);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  /// Empty the caller's cart.
+  clearCart: () -> ();
+  /// Create a restaurant (admin only).
+  createRestaurant: (input: RestaurantInput) -> (Restaurant);
+  /// Delete one of the caller's saved addresses.
+  deleteAddress: (id: AddressId) -> (bool);
+  /// Delete a restaurant and its menu items (admin only).
+  deleteRestaurant: (id: RestaurantId) -> (bool);
+  execute: (qJson: text) -> (Result) query;
+  /// Return the backend's behavioral API documentation as Markdown.
+  getApiDoc: () -> (text) query;
+  getCallerUserRole: () -> (UserRole) query;
+  /// Return the caller's current cart, if any.
+  getCart: () -> (opt Cart) query;
+  /// Dashboard summary counts (admin only).
+  getDashboardSummary: () -> (DashboardSummary) query;
+  /// Group a restaurant's menu items by category.
+  getMenuByCategory: (id: RestaurantId) -> (vec MenuCategory) query;
+  /// Fetch one of the caller's orders by id.
+  getOrder: (id: OrderId) -> (opt Order) query;
+  /// Fetch a restaurant with its full menu.
+  getRestaurant: (id: RestaurantId) -> (opt RestaurantDetail) query;
+  isCallerAdmin: () -> (bool) query;
+  /// List the caller's saved addresses.
+  listAddresses: () -> (vec Address) query;
+  /// List all orders, optionally filtered by status (admin only).
+  listAllOrders: (status: opt OrderStatus) -> (vec Order) query;
+  /// List the caller's past orders, newest first.
+  listOrders: () -> (vec Order) query;
+  /// List restaurants matching the given filter, sorted accordingly.
+  listRestaurants: (filter: RestaurantFilter) -> (vec Restaurant) query;
+  /// Count of menu items (admin only).
+  menuItemCount: () -> (nat) query;
+  /// Count of orders grouped by status (admin only).
+  ordersByStatus: () -> (OrderStatusCounts) query;
+  /// Place an order from the caller's current cart.
+  placeOrder: (input: PlaceOrderInput) -> (Order);
+  /// Remove a line from the caller's cart.
+  removeCartItem: (menuItemId: MenuItemId) -> (opt Cart);
+  /// Remove a menu item (admin only).
+  removeMenuItem: (itemId: MenuItemId) -> (bool);
+  /// Count of restaurants (admin only).
+  restaurantCount: () -> (nat) query;
+  schema: () -> (text) query;
+  /// Search restaurant names and dish names.
+  searchRestaurants: (term: text) -> (vec Restaurant) query;
+  /// Mark one of the caller's addresses as the default.
+  setDefaultAddress: (id: AddressId) -> (opt Address);
+  /// Update one of the caller's saved addresses.
+  updateAddress: (id: AddressId, input: AddressInput) -> (opt Address);
+  /// Set the quantity of a cart line; zero removes it.
+  updateCartItem: (menuItemId: MenuItemId, quantity: nat) -> (opt Cart);
+  /// Update a menu item (admin only).
+  updateMenuItem: (itemId: MenuItemId, input: MenuItemInput) ->
+   (opt MenuItem);
+  /// Update a restaurant (admin only).
+  updateRestaurant: (id: RestaurantId, input: RestaurantInput) ->
+   (opt Restaurant);
+}

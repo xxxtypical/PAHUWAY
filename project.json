@@ -1,0 +1,20 @@
+{
+  "overview": "A Foodpanda-style food delivery marketplace for the Philippines with customer ordering and a merchant dashboard.",
+  "features": [
+    "Browse restaurants by cuisine and search dishes",
+    "Restaurant menus with Philippine peso pricing",
+    "Cart and checkout with Cash on Delivery or card payment",
+    "Live order tracking and order history",
+    "Saved delivery addresses with Philippine barangay and city fields",
+    "Merchant dashboard to manage restaurants, menus, and incoming orders"
+  ],
+  "category": "food-delivery-marketplace",
+  "tags": [
+    "food-delivery",
+    "marketplace",
+    "philippines",
+    "ordering",
+    "restaurants"
+  ],
+  "last_updated": "2026-09-20T21:17:59.799Z"
+}

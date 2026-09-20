@@ -1,0 +1,223 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/assets/fonts/PlusJakartaSans.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/assets/fonts/DMSans.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --font-display: "Plus Jakarta Sans";
+    --font-body: "DM Sans";
+    --font-mono: "JetBrains Mono";
+    --radius: 1rem;
+
+    /* Warm off-white canvas, deep ink */
+    --background: 0.985 0.004 20;
+    --foreground: 0.19 0.02 340;
+    --card: 1 0 0;
+    --card-foreground: 0.19 0.02 340;
+    --popover: 1 0 0;
+    --popover-foreground: 0.19 0.02 340;
+
+    /* Brand magenta-rose — the delivery-app signature */
+    --primary: 0.52 0.215 355;
+    --primary-foreground: 0.99 0.005 355;
+
+    --secondary: 0.965 0.012 350;
+    --secondary-foreground: 0.3 0.03 350;
+    --muted: 0.965 0.008 340;
+    --muted-foreground: 0.52 0.02 340;
+
+    /* Warm mango accent — prices, promos, highlights */
+    --accent: 0.78 0.155 72;
+    --accent-foreground: 0.24 0.05 60;
+
+    --destructive: 0.55 0.22 27;
+    --destructive-foreground: 0.99 0.005 27;
+    --success: 0.6 0.16 152;
+    --success-foreground: 0.99 0.005 152;
+    --warning: 0.76 0.15 85;
+    --warning-foreground: 0.24 0.05 85;
+    --info: 0.68 0.125 200;
+    --info-foreground: 0.18 0.03 200;
+
+    --border: 0.915 0.01 340;
+    --input: 0.915 0.01 340;
+    --ring: 0.52 0.215 355;
+
+    --chart-1: 0.52 0.215 355;
+    --chart-2: 0.78 0.155 72;
+    --chart-3: 0.68 0.125 200;
+    --chart-4: 0.6 0.16 152;
+    --chart-5: 0.62 0.18 300;
+
+    --sidebar: 0.99 0.006 350;
+    --sidebar-foreground: 0.19 0.02 340;
+    --sidebar-primary: 0.52 0.215 355;
+    --sidebar-primary-foreground: 0.99 0.005 355;
+    --sidebar-accent: 0.965 0.012 350;
+    --sidebar-accent-foreground: 0.3 0.03 350;
+    --sidebar-border: 0.915 0.01 340;
+    --sidebar-ring: 0.52 0.215 355;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.55 0.215 355),
+      oklch(0.6 0.2 320)
+    );
+    --gradient-promo: linear-gradient(
+      115deg,
+      oklch(0.78 0.155 72),
+      oklch(0.58 0.215 350)
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      oklch(0.985 0.008 350),
+      oklch(0.965 0.012 340)
+    );
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 0.155 0.014 340;
+    --foreground: 0.95 0.008 340;
+    --card: 0.195 0.018 340;
+    --card-foreground: 0.95 0.008 340;
+    --popover: 0.215 0.02 340;
+    --popover-foreground: 0.95 0.008 340;
+
+    --primary: 0.68 0.19 355;
+    --primary-foreground: 0.15 0.02 355;
+
+    --secondary: 0.235 0.022 340;
+    --secondary-foreground: 0.88 0.01 340;
+    --muted: 0.235 0.022 340;
+    --muted-foreground: 0.66 0.015 340;
+
+    --accent: 0.8 0.145 72;
+    --accent-foreground: 0.18 0.04 60;
+
+    --destructive: 0.63 0.2 25;
+    --destructive-foreground: 0.15 0.02 25;
+    --success: 0.68 0.15 152;
+    --success-foreground: 0.15 0.02 152;
+    --warning: 0.8 0.14 85;
+    --warning-foreground: 0.18 0.04 85;
+    --info: 0.72 0.115 200;
+    --info-foreground: 0.15 0.02 200;
+
+    --border: 0.29 0.022 340;
+    --input: 0.29 0.022 340;
+    --ring: 0.68 0.19 355;
+
+    --chart-1: 0.68 0.19 355;
+    --chart-2: 0.8 0.145 72;
+    --chart-3: 0.72 0.115 200;
+    --chart-4: 0.68 0.15 152;
+    --chart-5: 0.68 0.17 300;
+
+    --sidebar: 0.185 0.018 340;
+    --sidebar-foreground: 0.95 0.008 340;
+    --sidebar-primary: 0.68 0.19 355;
+    --sidebar-primary-foreground: 0.15 0.02 355;
+    --sidebar-accent: 0.235 0.022 340;
+    --sidebar-accent-foreground: 0.88 0.01 340;
+    --sidebar-border: 0.29 0.022 340;
+    --sidebar-ring: 0.68 0.19 355;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.68 0.19 355),
+      oklch(0.66 0.18 320)
+    );
+    --gradient-promo: linear-gradient(
+      115deg,
+      oklch(0.8 0.145 72),
+      oklch(0.66 0.19 350)
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      oklch(0.18 0.018 340),
+      oklch(0.155 0.014 340)
+    );
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-tight;
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  .bg-gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+
+  .bg-gradient-promo {
+    background-image: var(--gradient-promo);
+  }
+
+  .bg-gradient-subtle {
+    background-image: var(--gradient-subtle);
+  }
+
+  .text-gradient-primary {
+    background-image: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Signature: tabular peso pricing */
+  .price {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  .chip-rail {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-snap-type: x proximity;
+  }
+  .chip-rail::-webkit-scrollbar {
+    display: none;
+  }
+  .chip-rail > * {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+}
